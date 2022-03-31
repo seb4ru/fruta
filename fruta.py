@@ -3,9 +3,23 @@ import random
 #----SOLICITAR CANTIDAD DE JUGADORES----
 
 def ingreso_de_datos():
+    
+    # jugadores = número de jugadores
+    # lanzamiento_i = dado
+    # jugadores_nombres = nombres de los jugadores
+
     jugadores = int(input("Ingrese la cantidad de jugadores:"))
     lanzamiento_i = [random.randint(1, (30 * 1)) for _ in range(jugadores)]
-    return(jugadores, lanzamiento_i)
+    jugadores_nombres = []
+    contador_while = jugadores
+    print("\n")
+    
+    while(contador_while != 0):
+        
+        jugadores_nombres.append(input("A continuación ingresará uno por uno el nombres de cada jugador: "))
+        contador_while = contador_while - 1
+
+    return(jugadores, lanzamiento_i, jugadores_nombres)
 
 datos_basicos = ingreso_de_datos()
 print(datos_basicos[0])
@@ -14,12 +28,17 @@ print(datos_basicos)
 
 #----IMPRESIÓN DE RESULTADOS----
 
+
 for i in range(1, datos_basicos[0]+1):
-    print('Jugador', i, ':', datos_basicos[1][i-1],"\n")
+    print(datos_basicos[2][i-1],' sacó', datos_basicos[1][i-1],'  en el puntaje inicial de dados', "\n")
 
 #----ORDEN DE JUEGO----
 
+
+        # aquí meter un diccionario
+
 ordenLanzamiento = sorted(datos_basicos[1], reverse=True)
+
 print('El orden de juego será el siguiente (dado por el puntaje obtenido en el lanzamiento inicial de dados)):', ordenLanzamiento, '\n')
 
 print('¡AHORA SÍ, EMPECEMOS!')

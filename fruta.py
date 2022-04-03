@@ -1,12 +1,13 @@
+from code import interact
 import random
 
 #----SOLICITAR CANTIDAD DE JUGADORES----
 
 def ingreso_de_datos():
     
-    # jugadores = número de jugadores
-    # lanzamiento_i = dado
-    # jugadores_nombres = nombres de los jugadores
+    # jugadores = número de jugadores                   0
+    # lanzamiento_i = número de dado                    1
+    # jugadores_nombres = nombres de los jugadores      2
 
     jugadores = int(input("Ingrese la cantidad de jugadores:"))
     lanzamiento_i = []
@@ -34,12 +35,6 @@ def ingreso_de_datos():
 datos_basicos = ingreso_de_datos()
 print(datos_basicos)       
 
-#----IMPRESIÓN DE RESULTADOS----
-
-
-for i in range(1, datos_basicos[0]+1):
-      print('\n',datos_basicos[2][i-1],' sacó', datos_basicos[1][i-1],'  en el puntaje inicial de dados')
-
 #----ORDEN DE JUEGO----
 
 
@@ -49,119 +44,131 @@ ordenLanzamiento = datos_basicos[1]
 ordenLanzamiento.sort(reverse = True)
 orden_lanzamiento = {}
 
-print(ordenLanzamiento)
-
-
 for i in range(0, len(ordenLanzamiento)):
     
     orden_lanzamiento[ordenLanzamiento[i]] = datos_basicos[2][i-1]
 
 print(orden_lanzamiento, '\n')
 
+valorInicial = float(input('Ingrese valor de la apuesta inicial acordado por todos los participantes : '))
+
+print('\n¡AHORA SÍ, EMPECEMOS!\n')
 print('El orden de juego será el siguiente (dado por el puntaje obtenido en el lanzamiento inicial de dados)):', '\n')
+print('\n')
 
 x = 1
 
-
 for i in range(1, datos_basicos[0] + 1):
     
-    print('Jugador ', x ,orden_lanzamiento[ordenLanzamiento[i-1]])
+    print('Jugador ', x ,orden_lanzamiento[ordenLanzamiento[i-1]], 'con un puntaje inicial de dados :', ordenLanzamiento[i-1])
     x = x + 1
 
-print('¡AHORA SÍ, EMPECEMOS!')
-
-valorInicial = float(input('Ingrese valor de la apuesta inicial acordado por todos los participantes : '))
-
-print("Jugadores:", datos_basicos[0])
+print('\n')
+print("Total de jugadores:", datos_basicos[0])
 print("Apuesta inicial:", valorInicial)
+
+#----IMPRESIÓN DE RESULTADOS----
+
 
 #----CONDICIONES DEL JUEGO----
 
 
-#def lanzamientos(jugadores):
-#    lanzamiento = [random.randint(1, (6 * 1)) for _ in range(jugadores)]
-#    if lanzamiento == 1:
-#        print('Pierde turno')
-#    elif lanzamiento == 6:
-
-#        decisición = input(
-#            'Desea retractarse de su apuesta y pasar al turno siguiente? Y/N')
-
-#        while decisición != 'N':
-
-#            if decisición == 'Y':
-#                print('yes')
-#            else:
-#                print('Decisión inválida')
-#        segundoLanzamiento = [random.randint(
-#            1, (6 * 1)) for _ in range(jugadores)]
-
-
-#Juego
-#def juego(mesa):
-                      
-
-
-
-def lanzamientos(jugadores, valorInicial):
+mesa = datos_basicos[0] * valorInicial
     
-    mesa = jugadores * valorInicial
+print('\nMesa: ', mesa)
+print('Jugador\n', )
     
-    print('\nMesa: ', mesa)
-    print('Jugador\n', )
+
     
-    lanzamiento = random.randint(1, (6 * 1))
+def lanzamientos():
     
-    print('Primer Lanzamiento: ', lanzamiento)
+    return (random.randint(1, 6)) # Caras del dado
     
-    for _ in range(jugadores-1):
 
-        if lanzamiento == 1:
-            print('Pierde turno')
-        elif lanzamiento == 6:
-            print('Gano la apuesta mínima')
-            mesa = mesa-valorInicial
-            print('Mesa: ', mesa)
 
-        else:
+contador_porcentual = 0
 
-            decisición = input('Desea retractarse de su apuesta y pasar al turno siguiente jugador? Y/N: ')
-            
-            if decisición == 'N':
-                nuevaApuesta = input('¿Desea apostar por un número mayor o menor? Y/N: ')
-                if nuevaApuesta == 'Y':
-                    desicionNuevaApuesta = input('¿Mayor o menor?: ')
 
-                    segundoLanzamiento = random.randint(1, (6 * 1))
-                    print(segundoLanzamiento)
+print(orden_lanzamiento)
 
-                    if desicionNuevaApuesta == 'Mayor':
-                        if segundoLanzamiento > lanzamiento:
-                            print('El jugador gana, retira lo que aposto')
-                            mesa = mesa-valorInicial
-                            print('Mesa: ', mesa)
-                        else: 
-                            print('El jugador pierde, debe colocar lo que aposto')
-                            mesa = mesa+valorInicial
-                            print('Mesa: ', mesa)
-                    elif desicionNuevaApuesta == 'Menor':
-                        if segundoLanzamiento < lanzamiento:
-                            print('El jugador gana, retira lo que aposto')
-                            mesa = mesa-valorInicial
-                            print('Mesa: ', mesa)
-                        else: 
-                            print('El jugador pierde, debe colocar lo que aposto')
-                            mesa = mesa+valorInicial
-                            print('Mesa: ', mesa)
-                    else:
-                            print('Tiros iguales, pierde turno')
-                            print('Mesa: ', mesa)
+del ordenLanzamiento
 
-            elif decisición == 'Y':
-                print('Siguiente jugador')
-                lanzamiento = random.randint(1, (6 * 1))
-                print('Primer Lanzamiento: ', lanzamiento)                    
-            else:
-                print('ERROR. Decisión inválida')
+ordenLanzamiento = []
 
-lanzamientos(datos_basicos[0], valorInicial)
+for i in orden_lanzamiento:
+    ordenLanzamiento.append(orden_lanzamiento[i])
+
+
+print(ordenLanzamiento,'\n')
+
+
+
+while(mesa != 0):
+
+    jugador_actual = datos_basicos[2][ contador_porcentual % datos_basicos[0]-1]
+    print('Jugador actual: ', jugador_actual)
+    print(' El valor actual en la mesa es: ', mesa)
+
+    lanzamiento_actual = lanzamientos()
+
+    if not( lanzamiento_actual == 1 or lanzamiento_actual == 6 ):
+        
+        print(' Dado obtenido: ', lanzamiento_actual)
+    
+    elif (lanzamiento_actual == 1):
+        
+        print(' Dado obtenido: ', lanzamiento_actual)
+        print(' ',jugador_actual, 'pierde turno y da a la mesa el valor de la apuesta inicial')
+        
+        mesa = mesa + valorInicial
+        print(' Nuevo valor en la mesa', mesa, '\n')
+    
+    else:
+
+        print(' Dado obtenido: ', lanzamiento_actual)
+        print(' ',jugador_actual, 'pierde turno pero saca de la mesa el equivalente al valor inicial de la apuesta')
+
+        mesa = mesa -(valorInicial + mesa*0.05)
+        print(' El nuevo valor en la mesa es: ', mesa, '\n')
+    
+    # este input es para que el código en el momento se pare para ver los datos obtenidos o algo así, luego se quita y se modifica o algo gdygkl
+    input(" pasar al siguiente jugador")
+    print('\n')
+
+    contador_porcentual = contador_porcentual + 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
